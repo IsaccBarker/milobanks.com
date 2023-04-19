@@ -2,11 +2,7 @@
 <html>
 <head>
 <title>Websitings.</title>
-<style>
-html { color-scheme: light dark; }
-body { width: 35em; margin: 0 auto;
-font-family: Tahoma, Verdana, Arial, sans-serif; }
-</style>
+<link rel="stylesheet" href="/index.css" type="text/css">
 </head>
 <body>
 <h1>Welcome to my Web Site!</h1>
@@ -15,10 +11,13 @@ such, no need for introductions!</p>
 <p>You're probably here to access some static files (code, Linux ISOs, images).
 If so, but you don't know where to look, please contact me. Seriously, Sophia,
 I'm practically bedbound and have nothing to do with my time.</p>
+<p>I post random technical content on my <a href="/blog/index.html">"blog"</a>.
+<a href="/donate.html">Send me money</a>!</p>
 
 <h2>Get to know me, without talking!</h2>
 <p>And from the comfort of your own home!</p>
 <ol>
+<li><!--# include file="/components/email.html" --></li>
 <li><a href="/" onclick="alert('You\'re already here, dummy!')">Personal Website</a>.</li>
 <li><a href="https://github.com/IsaccBarker">GitHub</a>.</li>
 <li><a href="https://gitlab.com/IsaccBarker">GitLab</a> (basically dead).</li>
@@ -28,9 +27,9 @@ I'm practically bedbound and have nothing to do with my time.</p>
 
 <h2>Have some fun!</h2>
 <p>And do it for free! Listen to some music while you wait for your content.<p/>
-<audio controls autoplay src="/static/music.mp3" type="audio/mpeg" style="padding-bottom: 50px;"></audio>
-<img src="/static/duck.gif" alt="dancing duck with baseball cap on backwards" style="width: 25%"></img>
+<audio controls autoplay src="/static/audio/music.mp3" type="audio/mpeg" style="padding-bottom: 50px;"></audio>
+<img src="/static/imgs/duck.gif" alt="dancing duck with baseball cap on backwards" style="width: 25%"></img>
 
-<p><em>Hosted on FreeBSD!</em></p>
+<p><em>Hosted on <a href="https://www.freebsd.org/">FreeBSD</a>!</em></p>
 </body>
 </html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Websitings.</title>
+<link rel="stylesheet" href="/index.css" type="text/css">
+</head>
+<body>
+<h1>Mild confusion about yacc actions</h1>
+<sub>Started on Tuesday, April 18, 4:05 PM (roughly)</sub>
+<br>
+<sub>Published on Tuesday, April 18, 7:26 PM</sub>
+
+<p>I'll admit, this problem stemmed from my own stupidity. What was the problem then? First, if you
+don't know what Yacc is, let's have <a href="https://en.wikipedia.org/wiki/Yacc">Wikipedia</a>
+explain things:</p>
+
+<blockquote><p>
+Yacc (Yet Another Compiler-Compiler) is a computer program for the Unix operating system developed
+by Stephen C. Johnson. It is a Look Ahead Left-to-Right Rightmost Derivation (LALR) parser
+generator, generating a LALR parser (the part of a compiler that tries to make syntactic sense of
+the source code) based on a formal grammar, written in a notation similar to Backus–Naur Form (BNF).
+Yacc is supplied as a standard utility on BSD and AT&T Unix. GNU-based Linux distributions iinclude
+Bison, a forward-compatible Yacc replacement.
+</p></blockquote>
+
+<p>In short, it's a program that takes in a specification of a language grammar (with some C code
+mixed in), and spits out a C parser (more specifically, a <a href=
+"https://en.wikipedia.org/wiki/LALR_parser">LALR parser</a>). If you want to learn more, you can
+find my yacc tutorial <a href="/todo.html">here</a>. The below assumes some knowledge, so if you
+don't know yacc you might want to take a peek.</p>
+
+<p>Take the below yacc code (the <code>block</code> rule is only one that matters here):</p>
+
+<pre><code>
+...
+%%
+block: '{' '}'
+     | '{' block_item_list '}'
+     {
+	if ($2 == '}') {
+		// &lt;malloc enough space for some block_items&gt;
+		goto end;
+	}
+
+	// &lt;realloc some more memory if we don't have enough memory to store another block_item&gt;
+
+end:
+}
+
+block_item_list: block_item_list block_item
+	       | block_item
+	       ;
+
+block_item: statement
+          | expression
+	  ;
+%%
+...
+</code></pre>
+
+<sub><b>Note: </b>the above code is a vast simplification.</sub>
+
+<p>This was my first time writing a yacc parser, so naturally I jump right in after viewing a
+<a href="https://www.youtube.com/watch?v=__-wUHG2rfM">single YouTube video</a> without reading
+the documentation.</p>
+
+<p>You might be able to see what I did wrong, and if you did, you're already leagues head of
+no-knowledge-of-yacc me. I was under the impression that one action is run per rule. In other words,
+no matter if <code>'{' block_item_list '}'</code> or <code>'{' block_item '}' </code> matches, the
+same action will be run.</p>
+
+<p>This misconception of mine is what lead me to try and detect which pattern was matched by
+checking if the second component of the rule is a '}'. If it was, we found an empty block, but if
+not, the block contains some code.</p>
+
+<p>Inevitably, this led to <code>block_items</code> never getting allocated, and also meant that the
+parser crashed on empty blocks (not because there was no action, but because other actions that use
+<code>block</code> as a component will dereference a null pointer).</p>
+
+<p>I think the reason that I thought there was one action per rule (not per pattern), was because
+I figured the developers back in the old-school UNIX days would be too lazy or resource contrained
+to implement seperate actions for different patterns.</p>
+
+<p>The lesson here is to read the documentation, and not assume developers from the 1970s are lazy.
+</p>
+
+<!--# include file="/components/footer.html" -->
+</body>
+</html>

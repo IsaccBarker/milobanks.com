@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Websitings.</title>
+<link rel="stylesheet" href="/index.css" type="text/css">
+<link rel="stylesheet" href="/static/highlight/styles/stackoverflow-dark.min.css">
+<script src="/static/highlight/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</head>
+<body>
+<h1>Part One: Language Design</h1>
+<sub>Started on Sunday, April 16, 10:20 PM</sub>
+<br/>
+<sub>Published on <b>Not yet</b></sub>
+<p><i>Sometimes, stealing is good.</i></p>
+
+<p><b>UNFINISHED</b></p>
+
+<!-- <h2>Introduction</h2>
+<p>If you haven't read <a ref="/blog/lang_comp_design/0.html">Part Zero</a>, I suggest that you do.
+If you don't want to, or simply don't have the time, I detailed why I am building my own language
+(I don't like the existing ones, for my purposes anyways), and why I feel like I can.</p>
+<p>Like any large project, programming or not, a plan is in order. This part deals with the design
+of the language, and how I decided on it, while subsequent parts deal with implementation.
+Capiche<sup><a href="#footnote1">1</a></sup>?</p>
+
+<p>The programming language we are designing here is a upper-mid-level programming language, like
+C.</p>
+
+<h2>Tenets</h2>
+<p>I think a good approach to language design is to come up with some points to design the language
+around. Then, you can ask yourself: "does this syntax reflect my goals" or "how badly does this not
+belong"? Of course, the "tenets" for this language will be different than those of other languages,
+as different languages have different goals (obviously).</p>
+
+<p>The tenets I'm aiming for, in no particular order, are...</p>
+
+<h3>Controlled use of syntax sugar</h3>
+<p>Syntax sugar can be a helpful tool in language design, as it allows for more concise and expressive
+code. However, it should be used judiciously and with careful consideration to avoid sacrificing
+readability and maintainability for the sake of brevity.</p>
+
+<p>In this language, the use of syntax sugar will be carefully controlled to strike a balance between
+conciseness and clarity. Where it enhances readability and simplifies code (and doesn't break the
+other "tenets"), it will be encouraged. However, excessive use of syntax sugar that obfuscates the
+underlying logic or introduces unnecessary complexity will be discouraged.</p>
+
+<p>Using too much syntax sugar, or using detrimental sugar (syntax salt), leads us into the next
+section.</p>
+
+<h3>Controlled use of conciseness and brevity</h3>
+<p>The language will prioritize conciseness and brevity in its syntax and constructs, as long as it
+does not compromise readability and maintainability. Code that is shorter and more concise can often
+be easier to understand and maintain, and can reduce the potential for errors; a smaller area of
+code means a smaller mental overhead, in my opinion.</p>
+
+<p>However, this mental overhead quickly increases after you reach a certain point. In this case, it
+follows a sort of inverse bell curve; an extreemly laconic language is no better than one with all
+sorts of crazy shortcuts, aliases, and salts.</p>
+
+<p>Take <a href="https://esolangs.org/wiki/05AB1E">05AB1E</a> and
+<a href="https://esolangs.org/wiki/(())">(())</a> for example. 05AB1E has a large number of special
+operators and sigils. Like, seriously, it's really a large amount. This means that you get short,
+but complex code with many syntax errors that take some time to sort out. (()), by contrast, has
+none of that; everything you want to do, there is likely no shorter way to do it provided by the
+language. You might find it silly to use two esolangs to prove my point, but I'm just illustrating
+that both ends of the spectrum are "bad".</p>
+
+<p>Too much brevity can also increase the amount of magic in a language.</p>
+
+<h3>Minimize magic</h3>
+<p>It seems many programming languages today are magical... too magical! By magical, I mean hidden
+control flow (e.g. compiler running destructors), weird sigils that generate "vast" amounts of
+code, etc... I think you get the idea.<sup><a href="#footnote2">2</a></sup></p>
+
+<p>Lets get an example. Take how C and Rust propagate errors up the callstack.</p>
+
+<pre><code>
+// C
+
+struct Foo *foo = Foo_new();
+
+if (foo == NULL) {
+	perror("allocation of Foo failed");
+	return NULL;
+}
+</code></pre>
+
+<pre><code>
+// Rust
+
+let foo = Foo::new()?;
+</code></pre>
+
+<p>Could you tell me what code Rust generates when it sees the <code>?</code> operator here?
+Probably not. Neither can I, and I've been using Rust for years. Does it generate something like
+this?</p>
+
+<pre><code>
+// Rust
+
+let foo = Foo::new();
+let foo = match foo {
+	Result::Ok(foo) => foo,
+	Result::Err(e) => return e,
+};
+</code></pre>
+
+<p>Or maybe</p>
+
+<pre><code>
+let foo = Foo::new();
+if let Result::Err = foo {
+	return foo.err().unwrap();
+}
+
+let foo = foo.unwrap();
+</code></pre>
+
+<p>It seems like this wouldn't matter, and indeed it really only ever would in a lower level
+context. You don't know if <code>unwrap()</code> is being called, or if it's doing something like a
+run of the mill pattern matching based solution, or what. You shouldn't have to look at the assembly
+output to figure this out.</p>
+
+<p>This is especially bad when the compiler might inject calls to impure functions that have side
+effects. I've had a couple hidden bugs manifest because of this.</p>
+
+<h3>Safety</h3>
+
+<h3>Nice to use</h3>
+<p>This is simple; it should be nice to use. Since I am the sole user of this language, I can make
+it however I want, and I can tailor it just for me. Hopefully this will reduce frustration in me,
+and in you if you decide to try it out. Lets not be like this man:</p>
+
+<img src="/static/imgs/hammer.svg" style="width:25%;display:block;margin-left:auto;margin-right:auto;width:50%;">
+
+<h2>Footnotes</h2>
+<p><sup id="footnote1">1: God I hate that word. "Capiche" is a colloquial term meaning "understood"
+or "got it" often used to confirm understanding.</sup></p>
+<p><sup id="footnote2">2: Getting rid of "magic" is almost analogous to Zig getting rid of hidden
+control flow.</sup></p>
+-->
+
+<!--# include file="/components/footer.html" -->
+</body>
+</html>
